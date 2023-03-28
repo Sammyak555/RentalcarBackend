@@ -93,7 +93,7 @@ userRouter.post("/login", async (req, res) => {
                         res.send({
                             userId: user[0]._id,
                             message: "Login successfully",
-                            token,
+                            "token":token,
                         });
                     } else {
                         res.send({

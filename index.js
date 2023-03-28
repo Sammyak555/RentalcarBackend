@@ -3,12 +3,14 @@ const { connection } = require("./Config/db");
 const { userRouter } = require("./Routes/users.routes");
 const cors = require("cors");
 const { carRouter } = require("./Routes/cars.routes");
+const { authenticate } = require("./Middleware/authentication");
 require("dotenv").config();
 const app = express();
 app.use(cors());
 
 app.use(express.json());
 app.use("/users", userRouter);
+app.use(authenticate)
 app.use("/cars", carRouter);
 
 app.get("/", (req, res) => {
