@@ -1,9 +1,11 @@
 const express = require("express");
 const bcrypt = require("bcrypt");
+var nodemailer = require('nodemailer');
 var jwt = require("jsonwebtoken");
 const { UserModel } = require("../Models/user.model");
 const { CarModel } = require("../Models/cars.model");
 const userRouter = express.Router();
+require("dotenv").config();
 
 userRouter.get("/", async (req, res) => {
     const query = req.query._limit;
@@ -12,6 +14,7 @@ userRouter.get("/", async (req, res) => {
         const users = await UserModel.find()
             .limit(query)
             .skip((pages - 1) * query);
+
         res.status(200).send(users);
     } catch (err) {
         res.status(400).send(err.message);
@@ -28,15 +31,6 @@ userRouter.get("/:id", async (req, res) => {
     }
 });
 
-userRouter.post("/addjson", async (req, res) => {
-    const payload = req.body;
-    try {
-      await CarModel.insertMany(payload);
-      res.status(200).send("json added !");
-    } catch (err) {
-      res.send(err);
-    }
-  });
 
 userRouter.post("/register", async (req, res) => {
     const { email, password } = req.body;
@@ -61,6 +55,36 @@ userRouter.post("/register", async (req, res) => {
                         });
                         await newRegistration.save();
                         console.log(newRegistration);
+            //sending email--------------------------------------------------------
+            var transporter = nodemailer.createTransport({
+                service: 'gmail',
+                auth: {
+                    user: 'sammyak.deosale.1@gmail.com',
+                    pass: process.env.googlePass
+                }
+            });
+            
+            // NB! No need to recreate the transporter object. You can use
+            // the same transporter object for all e-mails
+            
+            // setup e-mail data with unicode symbols
+            var mailOptions = {
+                from: 'sammyak Deosale <sammyak.deosale.1@gmail.com>', // sender address
+                to: email, // list of receivers
+                subject: `Hello ${email} `, // Subject line
+                text: 'Hello world ', // plaintext body
+                html: '<b>Hello world </b>'// html body
+            };
+            
+            // send mail with defined transport object
+            transporter.sendMail(mailOptions, function(error, info){
+                if(error){
+                    console.log(error);
+                }else{
+                    console.log('Message sent: ' + info.response);
+                }
+            });
+
                         await res.status(200).send({
                             message: "new registration successfully",
                         });

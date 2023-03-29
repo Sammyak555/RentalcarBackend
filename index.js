@@ -1,10 +1,10 @@
 const express = require("express");
 const { connection } = require("./Config/db");
 const { userRouter } = require("./Routes/users.routes");
-const cors = require("cors");
 const { carRouter } = require("./Routes/cars.routes");
 const { authenticate } = require("./Middleware/authentication");
 require("dotenv").config();
+const cors = require("cors");
 const app = express();
 app.use(cors());
 
@@ -18,10 +18,12 @@ app.get("/", (req, res) => {
 })
 app.listen(process.env.port, async (req, res) => {
   try {
+    
     await connection;
     console.log("Connected to db");
   } catch (err) {
     console.log(err);
   }
   console.log(`Running on port ${process.env.port}`);
+
 });

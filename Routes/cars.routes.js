@@ -15,20 +15,20 @@ carRouter.get("/", async (req, res) => {
         res.status(400).send(err.message);
     }
 });
+
 carRouter.get("/state", async (req, res) => {
-    const {state,city} = req.body;
-    const payload={};
-    state&&(payload.state=state)
-    city &&(payload.city=city)
+    const state = req.query.state
+    const city = req.query.city
+    console.log(state,city)
     try {
-        const cars = await CarModel.find(payload)
+        const cars = await CarModel.find({state:state,city:city})
         res.status(200).send(cars);
     } catch (err) {
         res.status(400).send(err.message);
     }
 });
 
-carRouter.use(authenticate)
+// carRouter.use(authenticate)
 
 carRouter.get("/:id", async (req, res) => {
     const id = req.params.id;
