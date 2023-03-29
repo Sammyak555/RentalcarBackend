@@ -12,20 +12,19 @@ userRouter.get("/", async (req, res) => {
         const users = await UserModel.find()
             .limit(query)
             .skip((pages - 1) * query);
-        res.send(users);
+        res.status(200).send(users);
     } catch (err) {
-        res.send(err.message);
+        res.status(400).send(err.message);
     }
 });
 
 userRouter.get("/:id", async (req, res) => {
     const id = req.params.id;
-
     try {
         const users = await UserModel.find({ _id: id });
-        res.send(users);
+        res.status(200).send(users);
     } catch (err) {
-        res.send(err.message);
+        res.status(400).send(err.message);
     }
 });
 
@@ -33,7 +32,7 @@ userRouter.post("/addjson", async (req, res) => {
     const payload = req.body;
     try {
       await CarModel.insertMany(payload);
-      res.send("json added !");
+      res.status(200).send("json added !");
     } catch (err) {
       res.send(err);
     }
@@ -62,13 +61,13 @@ userRouter.post("/register", async (req, res) => {
                         });
                         await newRegistration.save();
                         console.log(newRegistration);
-                        await res.send({
+                        await res.status(200).send({
                             message: "new registration successfully",
                         });
                     }
                 });
             } catch (err) {
-                res.send({
+                res.status(400).send({
                     message: err.message,
                 });
             }
@@ -90,13 +89,13 @@ userRouter.post("/login", async (req, res) => {
                     if (result) {
                         const token = jwt.sign({ userId: user[0]._id }, "masai");
                         console.log(user);
-                        res.send({
+                        res.status(200).send({
                             userId: user[0]._id,
                             message: "Login successfully",
                             "token":token,
                         });
                     } else {
-                        res.send({
+                        res.status(400).send({
                             message: "Wrong Password",
                         });
                     }
@@ -122,9 +121,9 @@ userRouter.delete("/delete/:id", async (req, res) => {
     const id = req.params.id;
     try {
         await UserModel.findByIdAndDelete({ _id: id });
-        res.send("user deleted !");
+        res.status(200).send("user deleted !");
     } catch (err) {
-        res.send(err);
+        res.status(400).send(err);
     }
 });
 
