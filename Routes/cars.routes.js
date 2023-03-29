@@ -14,10 +14,13 @@ carRouter.get("/", async (req, res) => {
         res.send(err.message);
     }
 });
-carRouter.get("/", async (req, res) => {
-    const city = req.query.city;
+carRouter.get("/state", async (req, res) => {
+    const {state,city} = req.body;
+    const payload={};
+    state&&(payload.state=state)
+    city &&(payload.city=city)
     try {
-        const cars = await CarModel.find({city:city})
+        const cars = await CarModel.find(payload)
         res.send(cars);
     } catch (err) {
         res.send(err.message);
