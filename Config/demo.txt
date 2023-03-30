@@ -16,3 +16,39 @@ const carSchema=mongoose.Schema({
 })
 // car is a collection and it will be created auto if not present in db
 const CarModel=mongoose.model("car",carSchema)
+
+ {
+    "_id": "64254a6427e52b0cd05a64d4",
+    "email": "xz@gmail.com",
+    "password": "$2b$10$Mbv1F52mRVtC9eO98/tHeuoML3OGgmPsoKmLChat.roPZJ9ks51qG",
+    "booking": [],
+    "__v": 0
+  }
+
+  {
+    "_id": "6425397d5fe6c77c8fa47b27",
+    "imagesrc": "https://zoomcar-assets.zoomcar.com/98509/HostCarImage/host_car_image_9850975902eb0-16ce-44aa-beef-e33f64e9deed.jpg20230201-58-dd4z7",
+    "imagesrc2": "https://zoomcar-assets.zoomcar.com/98506/HostCarImage/host_car_image_98506a1250f7c-c7ec-4d1f-bd4d-9d8a46c6f604.jpg20230202-26-1hz4hmn",
+    "imagesrc3": "https://zoomcar-assets.zoomcar.com/98507/HostCarImage/host_car_image_9850751a298ed-51b9-4580-9020-d4ba65512846.jpg20230202-58-ne7g0i",
+    "imagesrc4": "https://zoomcar-assets.zoomcar.com/97888/HostCarImage/host_car_image_97888d840f2b0-4223-4b2e-a855-a1414a422d52.jpg20230201-66-15w18pk",
+    "imagesrc5": "https://zoomcar-assets.zoomcar.com/98510/HostCarImage/host_car_image_985104bd04dec-8959-493c-98b5-9d970785835a.jpg20230201-42-8wlgt3",
+    "ratingtext": "4.10 • Nice • 22 Trips",
+    "state": "maharashtra",
+    "city": "mumbai",
+    "title": "Nissan Micra 2017",
+    "detailsitem": "Manual",
+    "detailsitem2": "Petrol",
+    "detailsitem3": "5 Seats",
+    "pricediscounted": 121,
+    "priceoriginal": 200,
+    "__v": 0
+  },
+
+  {
+  "userId":"64257af9fe7e51d28c343e04",
+  "carId":"6425397d5fe6c77c8fa47b27",
+  "from":"2023-04-01",
+  "to":"2023-04-03",
+  "payment":"card",
+  "total":3000
+}

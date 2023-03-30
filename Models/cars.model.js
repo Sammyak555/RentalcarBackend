@@ -13,8 +13,8 @@ const carSchema=mongoose.Schema({
         detailsitem: String,
         detailsitem2:String ,
         detailsitem3: String,
-        pricediscounted: String,
-        priceoriginal: String,
+        pricediscounted: Number,
+        priceoriginal: Number,
   })
   // car is a collection and it will be created auto if not present in db
   const CarModel=mongoose.model("car",carSchema)
