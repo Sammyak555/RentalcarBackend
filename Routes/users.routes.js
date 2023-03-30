@@ -3,7 +3,6 @@ const bcrypt = require("bcrypt");
 var nodemailer = require('nodemailer');
 var jwt = require("jsonwebtoken");
 const { UserModel } = require("../Models/user.model");
-const { CarModel } = require("../Models/cars.model");
 const userRouter = express.Router();
 require("dotenv").config();
 
