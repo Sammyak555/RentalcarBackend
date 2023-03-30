@@ -31,20 +31,21 @@ userRouter.post('/booking', async (req, res) => {
         from: payload.from,
         to: payload.to,
         payment: payload.payment,
-        total : payload.total
+        total: payload.total
     }
     try {
         const user = await UserModel.find({ _id: userId })
         user[0].booking.push(data)
         await user[0].save()
         const car = await CarModel.find({ _id: data.carId })
-        
+
+        console.log(car)
         //transaction mail----------------------------------------------------------------------------------------------------
         var transporter = nodemailer.createTransport({
             service: 'gmail',
             auth: {
                 user: 'sammyak.deosale.1@gmail.com',
-                pass: "fyxhbljsixacflcp" 
+                pass: "fyxhbljsixacflcp"
             }
         });
 
@@ -55,26 +56,26 @@ userRouter.post('/booking', async (req, res) => {
                 link: 'https://RentalCar.js/'
             }
         });
-        // Next, generate an e-mail using the following code:
-        
+        // // Next, generate an e-mail using the following code:
+
         var emailNew = {
             body: {
-                name : user[0].username,
-                intro: ['Congratulations ! You have rented a car!', 'We\'re very excited to have you on board.','So here are your booking details !','Have a nice day.'],
-                table : {
-                    data : [
+                name: user[0].username,
+                intro: ['Congratulations ! You have rented a car!', 'We\'re very excited to have you on board.', 'So here are your booking details !', 'Have a nice day.'],
+                table: {
+                    data: [
                         {
-                            Car : [car[0].title,],
-                            Details: [`Type : ${(car[0].detailsitem,car[0].detailsitem2,car[0].detailsitem3)}`, `Date from : ${data.from}`, `Date to : ${data.to}`,`Payment Methd : ${data.payment}`,'Payment Status : Pending'],
-                            TotalFare : `₹${data.total}`,
+                            Car: car[0].title,
+                            Details: [`Type : ${(car[0].detailsitem, car[0].detailsitem2, car[0].detailsitem3)}`, `Date from : ${data.from}`, `Date to : ${data.to}`, `Payment Methd : ${data.payment}`, 'Payment Status : Pending'],
+                            TotalFare: `₹${data.total}`,
                         }
                     ]
                 },
                 outro: "Happy Journey !"
             }
-          
+
         };
-        
+
         // Generate an HTML email with the provided contents
         var emailBody = mailGenerator.generate(emailNew);
 
@@ -98,12 +99,12 @@ userRouter.post('/booking', async (req, res) => {
         await res.status(200).send({
             message: "done booking successfully",
         });
-    
-    
+
+
 
 
         //----------------------------------------------------------------------------------------------------------------
-        
+
 
     } catch (err) {
         res.send(err)
@@ -122,7 +123,7 @@ userRouter.get("/:id", async (req, res) => {
 
 
 userRouter.post("/register", async (req, res) => {
-    const { username,email, password } = req.body;
+    const { username, email, password } = req.body;
     if (username && email && password) {
         const validateEmail = await UserModel.findOne({ email: email });
         if (validateEmail) {
@@ -151,7 +152,7 @@ userRouter.post("/register", async (req, res) => {
                             service: 'gmail',
                             auth: {
                                 user: 'sammyak.deosale.1@gmail.com',
-                                pass: "fyxhbljsixacflcp" 
+                                pass: "fyxhbljsixacflcp"
                             }
                         });
 
@@ -166,16 +167,16 @@ userRouter.post("/register", async (req, res) => {
                             }
                         });
                         // Next, generate an e-mail using the following code:
-                        
+
                         var emailNew = {
                             body: {
                                 name: username,
-                                intro: ['Welcome to RentalCar!', 'We\'re very excited to have you on board.','Get started with login in with your current credentials!','Have a nice day.'],
-                               
+                                intro: ['Welcome to RentalCar!', 'We\'re very excited to have you on board.', 'Get started with login in with your current credentials!', 'Have a nice day.'],
+
                                 outro: 'Need help, or have questions? Just reply to this email, we\'d love to help.'
                             }
                         };
-                        
+
                         // Generate an HTML email with the provided contents
                         var emailBody = mailGenerator.generate(emailNew);
 

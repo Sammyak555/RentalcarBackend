@@ -2,7 +2,7 @@ const express = require("express");
 const { connection } = require("./Config/db");
 const { userRouter } = require("./Routes/users.routes");
 const { carRouter } = require("./Routes/cars.routes");
-const { authenticate } = require("./Middleware/authentication");
+
 require("dotenv").config();
 const cors = require("cors");
 const app = express();

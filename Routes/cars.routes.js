@@ -10,7 +10,7 @@ carRouter.get("/", async (req, res) => {
         const cars = await CarModel.find()
             .limit(query)
             .skip((pages - 1) * query);
-            res.status(200).send(cars);
+        res.status(200).send(cars);
     } catch (err) {
         res.status(400).send(err.message);
     }
@@ -19,9 +19,9 @@ carRouter.get("/", async (req, res) => {
 carRouter.get("/state", async (req, res) => {
     const state = req.query.state
     const city = req.query.city
-    console.log(state,city)
+    console.log(state, city)
     try {
-        const cars = await CarModel.find({state:state,city:city})
+        const cars = await CarModel.find({ state: state, city: city })
         res.status(200).send(cars);
     } catch (err) {
         res.status(400).send(err.message);
@@ -44,12 +44,12 @@ carRouter.get("/:id", async (req, res) => {
 carRouter.post("/addjson", async (req, res) => {
     const payload = req.body;
     try {
-      await CarModel.insertMany(payload);
-      res.status(200).send("car json added !");
+        await CarModel.insertMany(payload);
+        res.status(200).send("car json added !");
     } catch (err) {
         res.status(400).send(err);
     }
-  });
+});
 
 carRouter.delete("/delete/:id", async (req, res) => {
     const id = req.params.id;
